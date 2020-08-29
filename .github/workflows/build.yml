@@ -1,0 +1,40 @@
+name: Build and run
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repo
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - uses: actions/cache@v2
+      name: Configure pip caching
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Test demo augmentations
+      run: python example.py
+    - name: Commit and push generated image
+      run: |-
+        git diff
+        git config --global user.email "image-bot@example.com"
+        git config --global user.name "image-bot"
+        git diff --quiet || (git add *.png && git commit -m "generated images")
+        git push
