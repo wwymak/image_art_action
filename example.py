@@ -38,11 +38,11 @@ def strong_aug(p=0.5):
 
 
 if __name__ == "__main__":
-    image = np.ones((300, 300, 3), dtype=np.uint8)
+    image = np.array(Image.open('BodiamCastleWiki1'))
     mask = np.ones((300, 300), dtype=np.uint8)
     whatever_data = "my name"
     augmentation = strong_aug(p=0.9)
-    data = {"image": image, "mask": mask, "whatever_data": whatever_data, "additional": "hello"}
+    data = {"image": image}
     augmented = augmentation(**data)
-    image, mask, whatever_data, additional = augmented["image"], augmented["mask"], augmented["whatever_data"], augmented["additional"]
+    image = augmented["image"]
     Image.fromarray(image).save('test.png')
