@@ -36,5 +36,5 @@ jobs:
         git diff
         git config --global user.email "image-bot@example.com"
         git config --global user.name "image-bot"
-        git diff --quiet || (git add *.png && git commit -m "generated images")
+        git add *.png && git commit -m "generated images"
         git push
