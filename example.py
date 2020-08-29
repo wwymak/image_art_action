@@ -38,7 +38,7 @@ def strong_aug(p=0.5):
 
 
 if __name__ == "__main__":
-    image = np.array(Image.open('BodiamCastleWiki1'))
+    image = np.array(Image.open('BodiamCastleWiki1.jpg'))
     mask = np.ones((300, 300), dtype=np.uint8)
     whatever_data = "my name"
     augmentation = strong_aug(p=0.9)
