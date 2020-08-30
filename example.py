@@ -41,6 +41,7 @@ def strong_aug(p=0.5):
 
 if __name__ == "__main__":
     filepath = sys.argv[1]
+    print(filepath, 'here!!!!!!!!!!!1')
     image = np.array(Image.open('BodiamCastleWiki1.jpg'))
     image = np.array(Image.open(filepath))
     augmentation = strong_aug(p=0.9)
