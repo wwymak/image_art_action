@@ -48,4 +48,4 @@ if __name__ == "__main__":
     data = {"image": image}
     augmented = augmentation(**data)
     image = augmented["image"]
-    Image.fromarray(image).save(f'{Path("generated")/Path(filepath).stem}_modified.png')
+    Image.fromarray(image).save(f'{Path(filepath).stem}_modified.png')
