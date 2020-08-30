@@ -43,11 +43,6 @@ jobs:
             echo "File '$added_modified_file' has the headers of an image"
             python example.py ${added_modified_file}
           fi
-#          if [ $file == *.jpg] || [ $file == *.png ];
-#          if [ $(mimetype -b "$added_modified_file") == "text/plain" ];
-#          then echo ${added_modified_file}
-#          python example.py ${added_modified_file}
-#          fi
         done
 #    - name: Test demo augmentations
 #      run: python example.py
