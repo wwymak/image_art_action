@@ -39,8 +39,8 @@ jobs:
     - run: |
         mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.added_modified }}')
         for added_modified_file in "${added_modified_files[@]}"; do
-          if file "$added_modified_file" |grep -qE 'image|bitmap'; then
-            echo "File '$added_modified_file' has the headers of an image"
+          if [file "$added_modified_file" |grep -qE 'image|bitmap'] && [ $(find "originals" -name "$added_modified_file") ]; then
+            echo "File '$added_modified_file' is an image and is original"
             python example.py ${added_modified_file}
           fi
         done
