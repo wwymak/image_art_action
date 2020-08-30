@@ -39,7 +39,7 @@ jobs:
     - run: |
         mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.added_modified }}')
         for added_modified_file in "${added_modified_files[@]}"; do
-          if [[ $file == *.jpg]] || [ $file == *.png ]];
+          if [ $file == *.jpg] || [ $file == *.png ];
           then python example.py ${added_modified_file}
           fi
         done
