@@ -49,20 +49,12 @@ jobs:
 #        git add *.png && git commit -m "generated images"
 #        git push
 
-    - name: Commit and push image on branch
-      run : |-
-        git config --global user.email "image-bot@example.com"
-        git config --global user.name "image-bot"
-        echo "Checking for uncommitted changes in the git working tree."
-        if ! git diff --quiet
-        then
 
-          echo "INPUT_BRANCH value: $INPUT_BRANCH";
-          # Switch to branch from current Workflow run
-          git checkout $INPUT_BRANCH
-          git add .
-          git commit -m "generated output from image-bot"
-          git push --set-upstream origin "HEAD:$INPUT_BRANCH"
-        else
-            echo "Working tree clean. Nothing to commit."
-        fi
+
+    - name: Commit changed files
+      uses: stefanzweifel/git-auto-commit-action@v2.1.0
+      with:
+        commit_message: generated output from image-bot
+        branch: ${{ github.head_ref }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
