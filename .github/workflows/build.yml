@@ -43,8 +43,8 @@ jobs:
           then python example.py ${added_modified_file}
           fi
         done
-    - name: Test demo augmentations
-      run: python example.py
+#    - name: Test demo augmentations
+#      run: python example.py
 #    - name: Commit and push generated image
 #      run: |-
 #        git diff
