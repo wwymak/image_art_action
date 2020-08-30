@@ -57,7 +57,7 @@ jobs:
 
     - name: git list changed files
       run: |
-        - git diff
+        git diff
     - name: Commit changed files
       uses: stefanzweifel/git-auto-commit-action@v2.1.0
       with:
