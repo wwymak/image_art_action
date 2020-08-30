@@ -41,10 +41,26 @@ jobs:
         git branch
     - name: Test demo augmentations
       run: python example.py
-    - name: Commit and push generated image
-      run: |-
-        git diff
-        git config --global user.email "image-bot@example.com"
-        git config --global user.name "image-bot"
-        git add *.png && git commit -m "generated images"
-        git push
+#    - name: Commit and push generated image
+#      run: |-
+#        git diff
+#        git config --global user.email "image-bot@example.com"
+#        git config --global user.name "image-bot"
+#        git add *.png && git commit -m "generated images"
+#        git push
+
+    - name: Commit and push image on branch
+      run : |-
+        echo "Checking for uncommitted changes in the git working tree."
+        if ! git diff --quiet
+        then
+          git_setup
+          echo "INPUT_BRANCH value: $INPUT_BRANCH";
+          # Switch to branch from current Workflow run
+          git checkout $INPUT_BRANCH
+          git add .
+          git commit -m "$INPUT_COMMIT_MESSAGE" --author="$GITHUB_ACTOR <$GITHUB_ACTOR@users.noreply.github.com>"
+          git push --set-upstream origin "HEAD:$INPUT_BRANCH"
+        else
+            echo "Working tree clean. Nothing to commit."
+        fi
