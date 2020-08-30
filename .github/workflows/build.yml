@@ -51,10 +51,12 @@ jobs:
 
     - name: Commit and push image on branch
       run : |-
+        git config --global user.email "image-bot@example.com"
+        git config --global user.name "image-bot"
         echo "Checking for uncommitted changes in the git working tree."
         if ! git diff --quiet
         then
-          git_setup
+
           echo "INPUT_BRANCH value: $INPUT_BRANCH";
           # Switch to branch from current Workflow run
           git checkout $INPUT_BRANCH
