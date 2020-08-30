@@ -8,6 +8,7 @@ import sys
 import numpy as np
 from pathlib import Path
 from PIL import Image
+import os
 
 def strong_aug(p=0.5):
     return Compose([
@@ -49,3 +50,5 @@ if __name__ == "__main__":
     augmented = augmentation(**data)
     image = augmented["image"]
     Image.fromarray(image).save(f'{Path(filepath).stem}_modified.png')
+    print(os.listdir(), 'files list')
+    print('is file', Path(f'{Path(filepath).stem}_modified.png').is_file())
