@@ -14,7 +14,7 @@ if __name__ == "__main__":
     else:
         sys.exit()
 
-    parent_dir = Path(content_image_path).parent
+    parent_dir = Path(Path(content_image_path).name).parent
 
     if parent_dir != 'originals':
         print(f"${parent_dir} is not originals, exiting")
