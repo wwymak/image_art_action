@@ -49,7 +49,5 @@ if __name__ == "__main__":
     data = {"image": image}
     augmented = augmentation(**data)
     image = augmented["image"]
-    Image.fromarray(image).save(f'{Path(filepath).stem}_modified.png')
-    # Image.fromarray(image).save(filepath)
-    print(os.listdir(), 'files list')
+    Image.fromarray(image).save(f'generated/{Path(filepath).stem}_modified.png')
     print('is file', Path(f'{Path(filepath).stem}_modified.png').is_file())
