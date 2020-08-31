@@ -41,13 +41,15 @@ def strong_aug(p=0.5):
 
 
 if __name__ == "__main__":
-    # filepath = sys.argv[1]
-    filepath = "originals/Everything_is_Going_to_be_Alright.png"
-    print(filepath, 'here!!!!!!!!!!!1')
+    if len(sys.argv) > 1:
+        filepath = sys.argv[1]
+    else:
+        sys.exit()
+    # filepath = "originals/Everything_is_Going_to_be_Alright.png"
+
     image = np.array(Image.open(filepath))
     augmentation = strong_aug(p=0.9)
     data = {"image": image}
     augmented = augmentation(**data)
     image = augmented["image"]
     Image.fromarray(image).save(f'generated/{Path(filepath).stem}_modified.png')
-    print('is file', Path(f'{Path(filepath).stem}_modified.png').is_file())
