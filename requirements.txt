@@ -1,3 +1,5 @@
 albumentations
 numpy
 Pillow
+tensorflow>=2.0.0
+tensorflow-hub>=0.5
