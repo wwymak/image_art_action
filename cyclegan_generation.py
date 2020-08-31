@@ -13,6 +13,12 @@ if __name__ == "__main__":
         content_image_path = sys.argv[1]
     else:
         sys.exit()
+
+    parent_dir = Path(content_image_path).parent
+
+    if parent_dir != 'originals':
+        print(f"${parent_dir} is not originals, exiting")
+        sys.exit()
     # filepath = "originals/Everything_is_Going_to_be_Alright.png"
 
     style_image_path = Path("style_images")/np.random.choice(os.listdir("style_images"))
