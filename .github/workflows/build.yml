@@ -44,26 +44,12 @@ jobs:
             python example.py ${added_modified_file}
           fi
         done
-        echo is there a diff
-        git diff
-#    - name: Test demo augmentations
-#      run: python example.py
+
     - name: Commit and push generated image
       run: |-
         git diff
+        git ls-files -o
         git config --global user.email "image-bot@example.com"
         git config --global user.name "image-bot"
         git add *.png && git commit -m "generated images"
         git push
-
-
-    - name: git list changed files
-      run: |
-        git diff
-    - name: Commit changed files
-      uses: stefanzweifel/git-auto-commit-action@v2.1.0
-      with:
-        commit_message: generated output from image-bot
-        branch: ${{ github.head_ref }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
