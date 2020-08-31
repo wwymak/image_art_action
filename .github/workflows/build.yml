@@ -48,13 +48,13 @@ jobs:
         git diff
 #    - name: Test demo augmentations
 #      run: python example.py
-#    - name: Commit and push generated image
-#      run: |-
-#        git diff
-#        git config --global user.email "image-bot@example.com"
-#        git config --global user.name "image-bot"
-#        git add *.png && git commit -m "generated images"
-#        git push
+    - name: Commit and push generated image
+      run: |-
+        git diff
+        git config --global user.email "image-bot@example.com"
+        git config --global user.name "image-bot"
+        git add *.png && git commit -m "generated images"
+        git push
 
 
     - name: git list changed files
