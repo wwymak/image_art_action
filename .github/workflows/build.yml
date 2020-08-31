@@ -41,10 +41,8 @@ jobs:
         for added_modified_file in "${added_modified_files[@]}"; do
           file_count=$(find originals -name $added_modified_file | wc -l)
           if file $added_modified_file |grep -qE 'image|bitmap'; then
-#            if [[ $file_count -gt 0 ]]; then
-              echo "File '$added_modified_file' is an image and is original"
-              python cyclegan_generation.py ${added_modified_file}
-#            fi
+            echo "File '$added_modified_file' is an image"
+            python cyclegan_generation.py ${added_modified_file}
           fi
         done
 
