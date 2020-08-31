@@ -44,6 +44,8 @@ jobs:
             python example.py ${added_modified_file}
           fi
         done
+        echo is there a diff
+        git diff
 #    - name: Test demo augmentations
 #      run: python example.py
 #    - name: Commit and push generated image
