@@ -40,11 +40,4 @@ if __name__ == "__main__":
     outputs = hub_module(tf.constant(content_image), tf.constant(style_image))
     stylized_image = outputs[0]
 
-    Image.fromarray(stylized_image.numpy()).save(f'generated/{Path(content_image).stem}_modified.png')
-
-    # image = np.array(Image.open(filepath))
-    # augmentation = strong_aug(p=0.9)
-    # data = {"image": image}
-    # augmented = augmentation(**data)
-    # image = augmented["image"]
-    # Image.fromarray(image).save(f'generated/{Path(filepath).stem}_modified.png')
+    Image.fromarray((stylized_image.numpy()[0] * 255 ).astype(np.uint8)).save(f'generated/{Path(content_image).stem}_modified.png')
