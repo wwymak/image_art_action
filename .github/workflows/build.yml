@@ -14,6 +14,9 @@ jobs:
     steps:
     - name: Check out repo
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        ref: ${{ github.head_ref }}
     - name: Set up Python
       uses: actions/setup-python@v1
       with:
@@ -29,11 +32,23 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Test demo augmentations
-      run: python example.py
+    - id: files
+      uses: jitterbit/get-changed-files@v1
+      with:
+        format: 'csv'
+    - run: |
+        mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.added_modified }}')
+        for added_modified_file in "${added_modified_files[@]}"; do
+          if file $added_modified_file |grep -qE 'image|bitmap'; then
+            echo "File '$added_modified_file' is an image and is original"
+            python example.py ${added_modified_file}
+          fi
+        done
+
     - name: Commit and push generated image
       run: |-
         git diff
+        git ls-files -o
         git config --global user.email "image-bot@example.com"
         git config --global user.name "image-bot"
         git add *.png && git commit -m "generated images"

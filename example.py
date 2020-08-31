@@ -4,8 +4,11 @@ from albumentations import (
     IAAAdditiveGaussianNoise, GaussNoise, MotionBlur, MedianBlur, IAAPiecewiseAffine,
     IAASharpen, IAAEmboss, RandomBrightnessContrast, Flip, OneOf, Compose
 )
+import sys
 import numpy as np
+from pathlib import Path
 from PIL import Image
+import os
 
 def strong_aug(p=0.5):
     return Compose([
@@ -38,11 +41,13 @@ def strong_aug(p=0.5):
 
 
 if __name__ == "__main__":
-    image = np.array(Image.open('BodiamCastleWiki1.jpg'))
-    mask = np.ones((300, 300), dtype=np.uint8)
-    whatever_data = "my name"
+    # filepath = sys.argv[1]
+    filepath = "originals/Everything_is_Going_to_be_Alright.png"
+    print(filepath, 'here!!!!!!!!!!!1')
+    image = np.array(Image.open(filepath))
     augmentation = strong_aug(p=0.9)
     data = {"image": image}
     augmented = augmentation(**data)
     image = augmented["image"]
-    Image.fromarray(image).save('test.png')
+    Image.fromarray(image).save(f'generated/{Path(filepath).stem}_modified.png')
+    print('is file', Path(f'{Path(filepath).stem}_modified.png').is_file())
