@@ -39,7 +39,7 @@ jobs:
     - run: |
         mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.added_modified }}')
         for added_modified_file in "${added_modified_files[@]}"; do
-          if [file $added_modified_file |grep -qE 'image|bitmap'] || [ -e "originals/$added_modified_file" ]; then
+          if [ file $added_modified_file |grep -qE 'image|bitmap' ] || [ -e "originals/$added_modified_file" ]; then
             echo "File '$added_modified_file' is an image and is original"
             python cyclegan_generation.py ${added_modified_file}
           fi
